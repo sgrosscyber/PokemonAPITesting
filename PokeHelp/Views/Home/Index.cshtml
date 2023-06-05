@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Pokémon Stats";
+}
+
+<h2>Pokémon Stats</h2>
+
+<div>
+    <label for="txtPokemonId">Pokémon Name:</label>
+    <input type="text" id="txtPokemonId" />
+    <button type="button" onclick="getPokemonStats()">Get Stats</button>
+</div>
+
+<div id="statsContainer" style="display: none;">
+    <h3>Height: <span id="height"></span></h3>
+    <h3>Weight: <span id="weight"></span></h3>
+</div>
+
+@section Scripts {
+    <script>
+        function getPokemonStats() {
+            var pokemonId = document.getElementById('txtPokemonId').value;
+            if (pokemonId) {
+                fetch('/Home/Get/' + pokemonId)
+                    .then(response => response.json())
+                    .then(data => displayStats(data))
+                    .catch(error => console.log('Error:', error));
+            }
+        }
+
+        function displayStats(data) {
+            if (data) {
+                document.getElementById('height').textContent = data.height;
+                document.getElementById('weight').textContent = data.weight;
+                document.getElementById('statsContainer').style.display = 'block';
+            }
+        }
+    </script>
+}
