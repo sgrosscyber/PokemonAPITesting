@@ -24,7 +24,18 @@ namespace PokemonStats.Controllers
                     var height = pokemonData.GetProperty("height").GetInt32();
                     var weight = pokemonData.GetProperty("weight").GetInt32();
 
-                    var stats = new { height, weight };
+                    var heightInMeters = height * 0.1; // Convert to meters
+                    var weightInKilograms = weight * 0.1; // Convert to kilograms
+
+                    var heightInFeet = heightInMeters * 3.281; // Convert to feet
+                    var weightInPounds = weightInKilograms * 2.205; // Convert to pounds
+
+                    var stats = new
+                    {
+                        metric = new { height = $"{heightInMeters:F2} m", weight = $"{weightInKilograms:F2} kg" },
+                        imperial = new { height = $"{heightInFeet:F2} ft", weight = $"{weightInPounds:F2} lbs" }
+                    };
+
                     return Json(stats);
                 }
                 else

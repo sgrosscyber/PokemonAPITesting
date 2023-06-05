@@ -11,8 +11,14 @@
 </div>
 
 <div id="statsContainer" style="display: none;">
-    <h3>Height: <span id="height"></span></h3>
-    <h3>Weight: <span id="weight"></span></h3>
+    <h3>Height:</h3>
+    <p>
+        <span id="heightMetric"></span> m (Metric) | <span id="heightImperial"></span> ft (Imperial)
+    </p>
+    <h3>Weight:</h3>
+    <p>
+        <span id="weightMetric"></span> kg (Metric) | <span id="weightImperial"></span> lbs (Imperial)
+    </p>
 </div>
 
 @section Scripts {
@@ -29,8 +35,10 @@
 
         function displayStats(data) {
             if (data) {
-                document.getElementById('height').textContent = data.height;
-                document.getElementById('weight').textContent = data.weight;
+                document.getElementById('heightMetric').textContent = data.metric.height;
+                document.getElementById('heightImperial').textContent = data.imperial.height;
+                document.getElementById('weightMetric').textContent = data.metric.weight;
+                document.getElementById('weightImperial').textContent = data.imperial.weight;
                 document.getElementById('statsContainer').style.display = 'block';
             }
         }
